@@ -2,6 +2,13 @@
 
 Bindings to libidn2
 
-## Links
+## Documentation
 
-  - [libidn2 manual](https://www.gnu.org/software/libidn/libidn2/manual/libidn2.html)
+Can be found at [https://daurnimator.github.io/lua-idn2/](https://daurnimator.github.io/lua-idn2/)
+
+
+# Development
+
+## Generating documentation
+
+Documentation is written in markdown and intended to be consumed by [pandoc](http://pandoc.org/). See the `doc/` directory for more information.
