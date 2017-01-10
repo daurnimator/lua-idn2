@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>lua-idn2</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="site.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class="meta">
+<header>
+<h1 class="title">lua-idn2</h1>
+<h1 class="subtitle">Lua bindings to libidn2</h1>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#api">API</a><ul>
+<li><a href="#idn2-library">idn2 library</a><ul>
+<li><a href="#idn2.lookup"><code>idn2.lookup(src, flags)</code> <!-- --></a></li>
+<li><a href="#idn2.register"><code>idn2.register(ulabel, alabel, flags)</code> <!-- --></a></li>
+<li><a href="#idn2.lookup_ul"><code>idn2.lookup_ul(src, flags)</code> <!-- --></a></li>
+<li><a href="#idn2.register_ul"><code>idn2.register_ul(ulabel, alabel, flags)</code> <!-- --></a></li>
+<li><a href="#idn2.check_version"><code>idn2.check_version(req_version)</code> <!-- --></a></li>
+<li><a href="#idn2.VERSION"><code>idn2.VERSION</code> <!-- --></a></li>
+<li><a href="#idn2.VERSION_NUMBER"><code>idn2.VERSION_NUMBER</code> <!-- --></a></li>
+<li><a href="#idn2.LABEL_MAX_LENGTH"><code>idn2.LABEL_MAX_LENGTH</code> <!-- --></a></li>
+<li><a href="#idn2.DOMAIN_MAX_LENGTH"><code>idn2.DOMAIN_MAX_LENGTH</code> <!-- --></a></li>
+</ul></li>
+</ul></li>
+<li><a href="#links">Links</a></li>
+</ul>
+</nav>
+</div>
+<main>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>lua-idn2 is a set of <a href="https://www.lua.org">lua</a> bindings to <a href="https://www.gnu.org/software/libidn/libidn2/manual/libidn2.html">libidn2</a>, an implementation of IDNA2008/TR46 internationalized domain names.</p>
+</section>
+<section id="api" class="level1">
+<h1>API</h1>
+<section id="idn2-library" class="level2">
+<h2>idn2 library</h2>
+<p>Load with <code>require &quot;idn2&quot;</code></p>
+<section id="idn2.lookup" class="level3">
+<h3><code>idn2.lookup(src, flags)</code> <!-- --></h3>
+</section>
+<section id="idn2.register" class="level3">
+<h3><code>idn2.register(ulabel, alabel, flags)</code> <!-- --></h3>
+</section>
+<section id="idn2.lookup_ul" class="level3">
+<h3><code>idn2.lookup_ul(src, flags)</code> <!-- --></h3>
+</section>
+<section id="idn2.register_ul" class="level3">
+<h3><code>idn2.register_ul(ulabel, alabel, flags)</code> <!-- --></h3>
+</section>
+<section id="idn2.check_version" class="level3">
+<h3><code>idn2.check_version(req_version)</code> <!-- --></h3>
+<p>Returns a string containing the version of libidn2.</p>
+</section>
+<section id="idn2.VERSION" class="level3">
+<h3><code>idn2.VERSION</code> <!-- --></h3>
+<p>The libidn2 version as a string.</p>
+</section>
+<section id="idn2.VERSION_NUMBER" class="level3">
+<h3><code>idn2.VERSION_NUMBER</code> <!-- --></h3>
+<p>The libidn2 version as an integer.</p>
+</section>
+<section id="idn2.LABEL_MAX_LENGTH" class="level3">
+<h3><code>idn2.LABEL_MAX_LENGTH</code> <!-- --></h3>
+</section>
+<section id="idn2.DOMAIN_MAX_LENGTH" class="level3">
+<h3><code>idn2.DOMAIN_MAX_LENGTH</code> <!-- --></h3>
+</section>
+</section>
+</section>
+<section id="links" class="level1">
+<h1>Links</h1>
+<ul>
+<li><a href="https://github.com/daurnimator/lua-idn2">Github</a></li>
+<li><a href="https://github.com/daurnimator/lua-idn2/issues">Issue tracker</a></li>
+<li><a href="https://www.gnu.org/software/libidn/libidn2/manual/libidn2.html">libidn2</a></li>
+</ul>
+</section>
+</main>
+</body>
+</html>
