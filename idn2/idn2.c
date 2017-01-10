@@ -43,7 +43,7 @@ static int checkidn2_flags(lua_State *L, int idx) {
 static int luaidn2_lookup(lua_State *L) {
 	int res;
 	const uint8_t *src = (const uint8_t*)luaL_checkstring(L, 1);
-	int flags = optidn2_flags(L, 3, 0);
+	int flags = optidn2_flags(L, 2, 0);
 	uint8_t **lookupname = lua_newuserdata(L, sizeof(uint8_t *));
 	*lookupname = NULL;
 	lua_pushvalue(L, lua_upvalueindex(1));
@@ -86,7 +86,7 @@ static int luaidn2_register(lua_State *L) {
 static int luaidn2_lookup_ul(lua_State *L) {
 	int res;
 	const char *src = luaL_checkstring(L, 1);
-	int flags = optidn2_flags(L, 3, 0);
+	int flags = optidn2_flags(L, 2, 0);
 	char **lookupname = lua_newuserdata(L, sizeof(char *));
 	*lookupname = NULL;
 	lua_pushvalue(L, lua_upvalueindex(1));
