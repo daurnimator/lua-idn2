@@ -1,6 +1,12 @@
 describe("lua-idn2", function()
-	local idn2 = require "idn2"
-	it("examples from libidn2 manual", function()
+	local idn2 = require "idn2";
+	(idn2.VERSION_NUMBER >= 0x02000000 and it or pending)("example from libidn2 2.0.2 manual section 4.1", function()
+		assert.same("xn--nxasmm1c.com", idn2.to_ascii("βόλος.com"))
+	end);
+	(idn2.VERSION_NUMBER >= 0x02000000 and it or pending)("example from libidn2 2.0.2 manual section 4.2", function()
+		assert.same("βόλος.com", idn2.to_unicode("xn--nxasmm1c.com"))
+	end);
+	it("example from libidn2 0.16 manual", function()
 		assert.same("xn--rksmrgs-5wao1o.se", idn2.lookup("räksmörgås.se"))
 		assert.same("xn--blbrgrd-fxak7p.no", idn2.lookup("blåbærgrød.no"))
 		assert.same("xn--fuball-cta", idn2.register("fußball"))

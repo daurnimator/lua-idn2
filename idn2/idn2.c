@@ -40,6 +40,50 @@ static int checkidn2_flags(lua_State *L, int idx) {
 }
 #define optidn2_flags(L, n, d) luaL_opt((L), checkidn2_flags, (n), (d))
 
+#if IDN2_VERSION_NUMBER >= 0x02000000
+static int luaidn2_to_ascii(lua_State *L) {
+	int res;
+	const char *input = luaL_checkstring(L, 1);
+	int flags = optidn2_flags(L, 2, 0);
+	char **output = lua_newuserdata(L, sizeof(char *));
+	*output = NULL;
+	lua_pushvalue(L, lua_upvalueindex(1));
+	lua_setmetatable(L, -2);
+	res = idn2_to_ascii_8z(input, output, flags);
+	if (res == IDN2_OK) {
+		lua_pushstring(L, *output);
+	}
+	idn2_free(*output);
+	*output = NULL;
+	if (res == IDN2_OK) {
+		return 1;
+	} else {
+		return luaidn2_push_error(L, res);
+	}
+}
+
+static int luaidn2_to_unicode(lua_State *L) {
+	int res;
+	const char *input = luaL_checkstring(L, 1);
+	int flags = optidn2_flags(L, 2, 0);
+	char **output = lua_newuserdata(L, sizeof(char *));
+	*output = NULL;
+	lua_pushvalue(L, lua_upvalueindex(1));
+	lua_setmetatable(L, -2);
+	res = idn2_to_unicode_8z8z(input, output, flags);
+	if (res == IDN2_OK) {
+		lua_pushstring(L, *output);
+	}
+	idn2_free(*output);
+	*output = NULL;
+	if (res == IDN2_OK) {
+		return 1;
+	} else {
+		return luaidn2_push_error(L, res);
+	}
+}
+#endif
+
 static int luaidn2_lookup(lua_State *L) {
 	int res;
 	const uint8_t *src = (const uint8_t*)luaL_checkstring(L, 1);
@@ -82,6 +126,71 @@ static int luaidn2_register(lua_State *L) {
 		return luaidn2_push_error(L, res);
 	}
 }
+
+#if IDN2_VERSION_NUMBER >= 0x02000000
+static int luaidn2_to_ascii_lz(lua_State *L) {
+	int res;
+	const char *input = luaL_checkstring(L, 1);
+	int flags = optidn2_flags(L, 2, 0);
+	char **output = lua_newuserdata(L, sizeof(char *));
+	*output = NULL;
+	lua_pushvalue(L, lua_upvalueindex(1));
+	lua_setmetatable(L, -2);
+	res = idn2_to_ascii_lz(input, output, flags);
+	if (res == IDN2_OK) {
+		lua_pushstring(L, *output);
+	}
+	idn2_free(*output);
+	*output = NULL;
+	if (res == IDN2_OK) {
+		return 1;
+	} else {
+		return luaidn2_push_error(L, res);
+	}
+}
+
+static int luaidn2_to_unicode_8zlz(lua_State *L) {
+	int res;
+	const char *input = luaL_checkstring(L, 1);
+	int flags = optidn2_flags(L, 2, 0);
+	char **output = lua_newuserdata(L, sizeof(char *));
+	*output = NULL;
+	lua_pushvalue(L, lua_upvalueindex(1));
+	lua_setmetatable(L, -2);
+	res = idn2_to_unicode_8zlz(input, output, flags);
+	if (res == IDN2_OK) {
+		lua_pushstring(L, *output);
+	}
+	idn2_free(*output);
+	*output = NULL;
+	if (res == IDN2_OK) {
+		return 1;
+	} else {
+		return luaidn2_push_error(L, res);
+	}
+}
+
+static int luaidn2_to_unicode_lzlz(lua_State *L) {
+	int res;
+	const char *input = luaL_checkstring(L, 1);
+	int flags = optidn2_flags(L, 2, 0);
+	char **output = lua_newuserdata(L, sizeof(char *));
+	*output = NULL;
+	lua_pushvalue(L, lua_upvalueindex(1));
+	lua_setmetatable(L, -2);
+	res = idn2_to_unicode_lzlz(input, output, flags);
+	if (res == IDN2_OK) {
+		lua_pushstring(L, *output);
+	}
+	idn2_free(*output);
+	*output = NULL;
+	if (res == IDN2_OK) {
+		return 1;
+	} else {
+		return luaidn2_push_error(L, res);
+	}
+}
+#endif
 
 static int luaidn2_lookup_ul(lua_State *L) {
 	int res;
@@ -159,12 +268,31 @@ int luaopen_idn2(lua_State *L) {
 	lua_createtable(L, 0, 1);
 	lua_pushcfunction(L, boxed_pointer__gc);
 	lua_setfield(L, -2, "__gc");
+#if IDN2_VERSION_NUMBER >= 0x02000000
+	lua_pushvalue(L, -1);
+	lua_pushcclosure(L, luaidn2_to_ascii, 1);
+	lua_setfield(L, -3, "to_ascii");
+	lua_pushvalue(L, -1);
+	lua_pushcclosure(L, luaidn2_to_unicode, 1);
+	lua_setfield(L, -3, "to_unicode");
+#endif
 	lua_pushvalue(L, -1);
 	lua_pushcclosure(L, luaidn2_lookup, 1);
 	lua_setfield(L, -3, "lookup");
 	lua_pushvalue(L, -1);
 	lua_pushcclosure(L, luaidn2_register, 1);
 	lua_setfield(L, -3, "register");
+#if IDN2_VERSION_NUMBER >= 0x02000000
+	lua_pushvalue(L, -1);
+	lua_pushcclosure(L, luaidn2_to_ascii_lz, 1);
+	lua_setfield(L, -3, "to_ascii_lz");
+	lua_pushvalue(L, -1);
+	lua_pushcclosure(L, luaidn2_to_unicode_8zlz, 1);
+	lua_setfield(L, -3, "to_unicode_8zlz");
+	lua_pushvalue(L, -1);
+	lua_pushcclosure(L, luaidn2_to_unicode_lzlz, 1);
+	lua_setfield(L, -3, "to_unicode_lzlz");
+#endif
 	lua_pushvalue(L, -1);
 	lua_pushcclosure(L, luaidn2_lookup_ul, 1);
 	lua_setfield(L, -3, "lookup_ul");

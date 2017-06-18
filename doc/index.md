@@ -8,10 +8,25 @@ lua-idn2 is a set of [lua](https://www.lua.org) bindings to [libidn2](https://ww
 
 Load with `require "idn2"`
 
+### `idn2.to_ascii(src, flags)` <!-- --> {#idn2.to_ascii}
+
+
+### `idn2.to_unicode(src, flags)` <!-- --> {#idn2.to_unicode}
+
+
 ### `idn2.lookup(src, flags)` <!-- --> {#idn2.lookup}
 
 
 ### `idn2.register(ulabel, alabel, flags)` <!-- --> {#idn2.register}
+
+
+### `idn2.to_ascii_lz(src, flags)` <!-- --> {#idn2.to_ascii_lz}
+
+
+### `idn2.to_unicode_8zlz(src, flags)` <!-- --> {#idn2.to_unicode_8zlz}
+
+
+### `idn2.to_unicode_lzlz(src, flags)` <!-- --> {#idn2.to_unicode_lzlz}
 
 
 ### `idn2.lookup_ul(src, flags)` <!-- --> {#idn2.lookup_ul}
