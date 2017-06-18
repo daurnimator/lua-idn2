@@ -1,3 +1,5 @@
 doc/lua-idn2.3
 doc/lua-idn2.html
 doc/lua-idn2.pdf
+*.so
+*.o
