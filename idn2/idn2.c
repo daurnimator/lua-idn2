@@ -13,6 +13,20 @@ static int lua_absindex (lua_State *L, int i) {
 		i += lua_gettop(L) + 1;
 	return i;
 }
+
+#define luaL_setfuncs luaidn2L_setfuncs
+static void luaL_setfuncs (lua_State *L, const luaL_Reg *l, int nup) {
+	luaL_checkstack(L, nup+1, "too many upvalues");
+	for (; l->name != NULL; l++) {  /* fill the table with given functions */
+		int i;
+		lua_pushstring(L, l->name);
+		for (i = 0; i < nup; i++)  /* copy upvalues to the top */
+			lua_pushvalue(L, -(nup + 1));
+		lua_pushcclosure(L, l->func, nup);  /* closure with those upvalues */
+		lua_settable(L, -(nup + 3)); /* table must be below the upvalues, the name and the closure */
+	}
+	lua_pop(L, nup);  /* remove upvalues */
+}
 #endif
 
 static int luaidn2_push_error(lua_State *L, int rc) {
@@ -232,7 +246,27 @@ static int boxed_pointer__gc(lua_State *L) {
 }
 
 int luaopen_idn2(lua_State *L) {
-	lua_createtable(L, 0, 5);
+	static const luaL_Reg lib_with_upval[] = {
+#if IDN2_VERSION_NUMBER >= 0x02000000
+		{"to_ascii", luaidn2_to_ascii},
+		{"to_unicode", luaidn2_to_unicode},
+#endif
+		{"lookup", luaidn2_lookup},
+		{"register", luaidn2_register},
+#if IDN2_VERSION_NUMBER >= 0x02000000
+		{"to_ascii_lz", luaidn2_to_ascii_lz},
+		{"to_unicode_8zlz", luaidn2_to_unicode_8zlz},
+		{"to_unicode_lzlz", luaidn2_to_unicode_lzlz},
+#endif
+		{"lookup_ul", luaidn2_lookup_ul},
+		{"register_ul", luaidn2_register_ul},
+		{NULL, NULL},
+	};
+
+#if LUA_VERSION_NUM >= 502
+	luaL_checkversion(L);
+#endif
+	lua_createtable(L, 0, (sizeof(lib_with_upval)/sizeof(lib_with_upval[0]) - 1) + 5);
 
 	lua_pushliteral(L, IDN2_VERSION);
 	lua_setfield(L, -2, "VERSION");
@@ -250,36 +284,7 @@ int luaopen_idn2(lua_State *L) {
 	lua_createtable(L, 0, 1);
 	lua_pushcfunction(L, boxed_pointer__gc);
 	lua_setfield(L, -2, "__gc");
-#if IDN2_VERSION_NUMBER >= 0x02000000
-	lua_pushvalue(L, -1);
-	lua_pushcclosure(L, luaidn2_to_ascii, 1);
-	lua_setfield(L, -3, "to_ascii");
-	lua_pushvalue(L, -1);
-	lua_pushcclosure(L, luaidn2_to_unicode, 1);
-	lua_setfield(L, -3, "to_unicode");
-#endif
-	lua_pushvalue(L, -1);
-	lua_pushcclosure(L, luaidn2_lookup, 1);
-	lua_setfield(L, -3, "lookup");
-	lua_pushvalue(L, -1);
-	lua_pushcclosure(L, luaidn2_register, 1);
-	lua_setfield(L, -3, "register");
-#if IDN2_VERSION_NUMBER >= 0x02000000
-	lua_pushvalue(L, -1);
-	lua_pushcclosure(L, luaidn2_to_ascii_lz, 1);
-	lua_setfield(L, -3, "to_ascii_lz");
-	lua_pushvalue(L, -1);
-	lua_pushcclosure(L, luaidn2_to_unicode_8zlz, 1);
-	lua_setfield(L, -3, "to_unicode_8zlz");
-	lua_pushvalue(L, -1);
-	lua_pushcclosure(L, luaidn2_to_unicode_lzlz, 1);
-	lua_setfield(L, -3, "to_unicode_lzlz");
-#endif
-	lua_pushvalue(L, -1);
-	lua_pushcclosure(L, luaidn2_lookup_ul, 1);
-	lua_setfield(L, -3, "lookup_ul");
-	lua_pushcclosure(L, luaidn2_register_ul, 1);
-	lua_setfield(L, -2, "register_ul");
+	luaL_setfuncs(L, lib_with_upval, 1);
 
 	return 1;
 }
