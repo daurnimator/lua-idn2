@@ -7,7 +7,8 @@
 #include <lauxlib.h>
 
 #if defined(LUA_VERSION_NUM) && LUA_VERSION_NUM == 501
-int lua_absindex (lua_State *L, int i) {
+#define lua_absindex luaidn2_absindex
+static int lua_absindex (lua_State *L, int i) {
 	if (i < 0 && i > LUA_REGISTRYINDEX)
 		i += lua_gettop(L) + 1;
 	return i;
