@@ -20,6 +20,14 @@ static int luaidn2_push_error(lua_State *L, int rc) {
 	return 2;
 }
 
+static void* new_boxed_pointer(lua_State *L) {
+	void **ptr = lua_newuserdata(L, sizeof(void *));
+	*ptr = NULL;
+	lua_pushvalue(L, lua_upvalueindex(1));
+	lua_setmetatable(L, -2);
+	return ptr;
+}
+
 int idn2_flags_list[] = { IDN2_NFC_INPUT, IDN2_ALABEL_ROUNDTRIP, IDN2_TRANSITIONAL, IDN2_NONTRANSITIONAL };
 const char *idn2_flags_names[] = { "nfc_input", "alabel_roundtrip", "transitional", "nontransitional", NULL };
 #define checkidn2_flag(L, idx) \
@@ -45,10 +53,7 @@ static int luaidn2_to_ascii(lua_State *L) {
 	int res;
 	const char *input = luaL_checkstring(L, 1);
 	int flags = optidn2_flags(L, 2, 0);
-	char **output = lua_newuserdata(L, sizeof(char *));
-	*output = NULL;
-	lua_pushvalue(L, lua_upvalueindex(1));
-	lua_setmetatable(L, -2);
+	char **output = new_boxed_pointer(L);
 	res = idn2_to_ascii_8z(input, output, flags);
 	if (res == IDN2_OK) {
 		lua_pushstring(L, *output);
@@ -66,10 +71,7 @@ static int luaidn2_to_unicode(lua_State *L) {
 	int res;
 	const char *input = luaL_checkstring(L, 1);
 	int flags = optidn2_flags(L, 2, 0);
-	char **output = lua_newuserdata(L, sizeof(char *));
-	*output = NULL;
-	lua_pushvalue(L, lua_upvalueindex(1));
-	lua_setmetatable(L, -2);
+	char **output = new_boxed_pointer(L);
 	res = idn2_to_unicode_8z8z(input, output, flags);
 	if (res == IDN2_OK) {
 		lua_pushstring(L, *output);
@@ -88,10 +90,7 @@ static int luaidn2_lookup(lua_State *L) {
 	int res;
 	const uint8_t *src = (const uint8_t*)luaL_checkstring(L, 1);
 	int flags = optidn2_flags(L, 2, 0);
-	uint8_t **lookupname = lua_newuserdata(L, sizeof(uint8_t *));
-	*lookupname = NULL;
-	lua_pushvalue(L, lua_upvalueindex(1));
-	lua_setmetatable(L, -2);
+	uint8_t **lookupname = new_boxed_pointer(L);
 	res = idn2_lookup_u8(src, lookupname, flags);
 	if (res == IDN2_OK) {
 		lua_pushstring(L, (char*)*lookupname);
@@ -110,10 +109,7 @@ static int luaidn2_register(lua_State *L) {
 	const uint8_t *ulabel = (const uint8_t*)luaL_optstring(L, 1, NULL);
 	const uint8_t *alabel = (const uint8_t*)luaL_optstring(L, 2, NULL);
 	int flags = optidn2_flags(L, 3, 0);
-	uint8_t **insertname = lua_newuserdata(L, sizeof(uint8_t *));
-	*insertname = NULL;
-	lua_pushvalue(L, lua_upvalueindex(1));
-	lua_setmetatable(L, -2);
+	uint8_t **insertname = new_boxed_pointer(L);
 	res = idn2_register_u8(ulabel, alabel, insertname, flags);
 	if (res == IDN2_OK) {
 		lua_pushstring(L, (char*)*insertname);
@@ -132,10 +128,7 @@ static int luaidn2_to_ascii_lz(lua_State *L) {
 	int res;
 	const char *input = luaL_checkstring(L, 1);
 	int flags = optidn2_flags(L, 2, 0);
-	char **output = lua_newuserdata(L, sizeof(char *));
-	*output = NULL;
-	lua_pushvalue(L, lua_upvalueindex(1));
-	lua_setmetatable(L, -2);
+	char **output = new_boxed_pointer(L);
 	res = idn2_to_ascii_lz(input, output, flags);
 	if (res == IDN2_OK) {
 		lua_pushstring(L, *output);
@@ -153,10 +146,7 @@ static int luaidn2_to_unicode_8zlz(lua_State *L) {
 	int res;
 	const char *input = luaL_checkstring(L, 1);
 	int flags = optidn2_flags(L, 2, 0);
-	char **output = lua_newuserdata(L, sizeof(char *));
-	*output = NULL;
-	lua_pushvalue(L, lua_upvalueindex(1));
-	lua_setmetatable(L, -2);
+	char **output = new_boxed_pointer(L);
 	res = idn2_to_unicode_8zlz(input, output, flags);
 	if (res == IDN2_OK) {
 		lua_pushstring(L, *output);
@@ -174,10 +164,7 @@ static int luaidn2_to_unicode_lzlz(lua_State *L) {
 	int res;
 	const char *input = luaL_checkstring(L, 1);
 	int flags = optidn2_flags(L, 2, 0);
-	char **output = lua_newuserdata(L, sizeof(char *));
-	*output = NULL;
-	lua_pushvalue(L, lua_upvalueindex(1));
-	lua_setmetatable(L, -2);
+	char **output = new_boxed_pointer(L);
 	res = idn2_to_unicode_lzlz(input, output, flags);
 	if (res == IDN2_OK) {
 		lua_pushstring(L, *output);
@@ -196,10 +183,7 @@ static int luaidn2_lookup_ul(lua_State *L) {
 	int res;
 	const char *src = luaL_checkstring(L, 1);
 	int flags = optidn2_flags(L, 2, 0);
-	char **lookupname = lua_newuserdata(L, sizeof(char *));
-	*lookupname = NULL;
-	lua_pushvalue(L, lua_upvalueindex(1));
-	lua_setmetatable(L, -2);
+	char **lookupname = new_boxed_pointer(L);
 	res = idn2_lookup_ul(src, lookupname, flags);
 	if (res == IDN2_OK) {
 		lua_pushstring(L, *lookupname);
@@ -218,10 +202,7 @@ static int luaidn2_register_ul(lua_State *L) {
 	const char *ulabel = luaL_optstring(L, 1, NULL);
 	const char *alabel = luaL_optstring(L, 2, NULL);
 	int flags = optidn2_flags(L, 3, 0);
-	char **insertname = lua_newuserdata(L, sizeof(char *));
-	*insertname = NULL;
-	lua_pushvalue(L, lua_upvalueindex(1));
-	lua_setmetatable(L, -2);
+	char **insertname = new_boxed_pointer(L);
 	res = idn2_register_ul(ulabel, alabel, insertname, flags);
 	if (res == IDN2_OK) {
 		lua_pushstring(L, *insertname);
