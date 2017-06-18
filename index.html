@@ -22,13 +22,13 @@
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#api">API</a><ul>
 <li><a href="#idn2-library">idn2 library</a><ul>
-<li><a href="#idn2.to_ascii"><code>idn2.to_ascii(src, flags)</code> <!-- --></a></li>
-<li><a href="#idn2.to_unicode"><code>idn2.to_unicode(src, flags)</code> <!-- --></a></li>
+<li><a href="#idn2.to_ascii"><code>idn2.to_ascii(input, flags)</code> <!-- --></a></li>
+<li><a href="#idn2.to_unicode"><code>idn2.to_unicode(input, flags)</code> <!-- --></a></li>
 <li><a href="#idn2.lookup"><code>idn2.lookup(src, flags)</code> <!-- --></a></li>
 <li><a href="#idn2.register"><code>idn2.register(ulabel, alabel, flags)</code> <!-- --></a></li>
-<li><a href="#idn2.to_ascii_lz"><code>idn2.to_ascii_lz(src, flags)</code> <!-- --></a></li>
-<li><a href="#idn2.to_unicode_8zlz"><code>idn2.to_unicode_8zlz(src, flags)</code> <!-- --></a></li>
-<li><a href="#idn2.to_unicode_lzlz"><code>idn2.to_unicode_lzlz(src, flags)</code> <!-- --></a></li>
+<li><a href="#idn2.to_ascii_lz"><code>idn2.to_ascii_lz(input, flags)</code> <!-- --></a></li>
+<li><a href="#idn2.to_unicode_8zlz"><code>idn2.to_unicode_8zlz(input, flags)</code> <!-- --></a></li>
+<li><a href="#idn2.to_unicode_lzlz"><code>idn2.to_unicode_lzlz(input, flags)</code> <!-- --></a></li>
 <li><a href="#idn2.lookup_ul"><code>idn2.lookup_ul(src, flags)</code> <!-- --></a></li>
 <li><a href="#idn2.register_ul"><code>idn2.register_ul(ulabel, alabel, flags)</code> <!-- --></a></li>
 <li><a href="#idn2.check_version"><code>idn2.check_version(req_version)</code> <!-- --></a></li>
@@ -53,10 +53,12 @@
 <h2>idn2 library</h2>
 <p>Load with <code>require &quot;idn2&quot;</code></p>
 <section id="idn2.to_ascii" class="level3">
-<h3><code>idn2.to_ascii(src, flags)</code> <!-- --></h3>
+<h3><code>idn2.to_ascii(input, flags)</code> <!-- --></h3>
+<p>Note: This function will not exist if lua-idn2 is compiled against libidn2 0.16 or earlier.</p>
 </section>
 <section id="idn2.to_unicode" class="level3">
-<h3><code>idn2.to_unicode(src, flags)</code> <!-- --></h3>
+<h3><code>idn2.to_unicode(input, flags)</code> <!-- --></h3>
+<p>Note: This function will not exist if lua-idn2 is compiled against libidn2 0.16 or earlier.</p>
 </section>
 <section id="idn2.lookup" class="level3">
 <h3><code>idn2.lookup(src, flags)</code> <!-- --></h3>
@@ -65,13 +67,16 @@
 <h3><code>idn2.register(ulabel, alabel, flags)</code> <!-- --></h3>
 </section>
 <section id="idn2.to_ascii_lz" class="level3">
-<h3><code>idn2.to_ascii_lz(src, flags)</code> <!-- --></h3>
+<h3><code>idn2.to_ascii_lz(input, flags)</code> <!-- --></h3>
+<p>Note: This function will not exist if lua-idn2 is compiled against libidn2 0.16 or earlier.</p>
 </section>
 <section id="idn2.to_unicode_8zlz" class="level3">
-<h3><code>idn2.to_unicode_8zlz(src, flags)</code> <!-- --></h3>
+<h3><code>idn2.to_unicode_8zlz(input, flags)</code> <!-- --></h3>
+<p>Note: This function will not exist if lua-idn2 is compiled against libidn2 0.16 or earlier.</p>
 </section>
 <section id="idn2.to_unicode_lzlz" class="level3">
-<h3><code>idn2.to_unicode_lzlz(src, flags)</code> <!-- --></h3>
+<h3><code>idn2.to_unicode_lzlz(input, flags)</code> <!-- --></h3>
+<p>Note: This function will not exist if lua-idn2 is compiled against libidn2 0.16 or earlier.</p>
 </section>
 <section id="idn2.lookup_ul" class="level3">
 <h3><code>idn2.lookup_ul(src, flags)</code> <!-- --></h3>
