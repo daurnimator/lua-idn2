@@ -10,8 +10,12 @@ Load with `require "idn2"`
 
 ### `idn2.to_ascii(src, flags)` <!-- --> {#idn2.to_ascii}
 
+Note: This function will not exist if lua-idn2 is compiled against libidn2 0.16 or earlier.
+
 
 ### `idn2.to_unicode(src, flags)` <!-- --> {#idn2.to_unicode}
+
+Note: This function will not exist if lua-idn2 is compiled against libidn2 0.16 or earlier.
 
 
 ### `idn2.lookup(src, flags)` <!-- --> {#idn2.lookup}
@@ -22,11 +26,17 @@ Load with `require "idn2"`
 
 ### `idn2.to_ascii_lz(src, flags)` <!-- --> {#idn2.to_ascii_lz}
 
+Note: This function will not exist if lua-idn2 is compiled against libidn2 0.16 or earlier.
+
 
 ### `idn2.to_unicode_8zlz(src, flags)` <!-- --> {#idn2.to_unicode_8zlz}
 
+Note: This function will not exist if lua-idn2 is compiled against libidn2 0.16 or earlier.
+
 
 ### `idn2.to_unicode_lzlz(src, flags)` <!-- --> {#idn2.to_unicode_lzlz}
+
+Note: This function will not exist if lua-idn2 is compiled against libidn2 0.16 or earlier.
 
 
 ### `idn2.lookup_ul(src, flags)` <!-- --> {#idn2.lookup_ul}
