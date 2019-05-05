@@ -7,6 +7,13 @@ Bindings to libidn2
 Can be found at [https://daurnimator.github.io/lua-idn2/](https://daurnimator.github.io/lua-idn2/)
 
 
+# Installation
+
+It's recommended to install lua-idn2 by using [luarocks](https://luarocks.org/).
+
+    $ luarocks install idn2
+
+
 # Development
 
 ## Generating documentation
