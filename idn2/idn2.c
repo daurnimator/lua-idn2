@@ -261,7 +261,7 @@ static int luaidn2_register_ul(lua_State *L) {
 static int luaidn2_check_version(lua_State *L) {
 	const char *req_version = luaL_optstring(L, 1, NULL);
 	const char *res = idn2_check_version(req_version);
-	lua_pushstring(L, res);
+	lua_pushstring(L, res); /* could be NULL */
 	return 1;
 }
 
