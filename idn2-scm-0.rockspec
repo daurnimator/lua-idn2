@@ -1,7 +1,8 @@
 package = "idn2"
-version = "scm-0"
+version = "0.1-0"
 source = {
-	url = "git+https://github.com/daurnimator/lua-idn2.git";
+	url = "https://github.com/daurnimator/lua-idn2/archive/v0.1.zip";
+	dir = "lua-idn2-0.1";
 }
 description = {
 	summary = "Bindings to libidn2, an implementation of IDNA2008/TR46 internationalized domain names";
