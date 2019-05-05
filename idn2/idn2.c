@@ -43,10 +43,37 @@ static void* new_boxed_pointer(lua_State *L) {
 	return ptr;
 }
 
-int idn2_flags_list[] = { IDN2_NFC_INPUT, IDN2_ALABEL_ROUNDTRIP, IDN2_TRANSITIONAL, IDN2_NONTRANSITIONAL };
-const char *idn2_flags_names[] = { "nfc_input", "alabel_roundtrip", "transitional", "nontransitional", NULL };
-#define checkidn2_flag(L, idx) \
-	(idn2_flags_list[luaL_checkoption((L), (idx), NULL, idn2_flags_names)])
+static const int idn2_flags_list[] = {
+	IDN2_NFC_INPUT,
+	IDN2_ALABEL_ROUNDTRIP,
+#ifdef IDN2_NO_TR46
+	IDN2_NO_TR46,
+#endif
+	IDN2_TRANSITIONAL,
+	IDN2_NONTRANSITIONAL
+#ifdef IDN2_ALLOW_UNASSIGNED
+	IDN2_ALLOW_UNASSIGNED,
+#endif
+#ifdef IDN2_USE_STD3_ASCII_RULES
+	IDN2_USE_STD3_ASCII_RULES,
+#endif
+};
+static const char *idn2_flags_names[] = {
+	"nfc_input",
+	"alabel_roundtrip",
+#ifdef IDN2_NO_TR46
+	"no_tr46",
+#endif
+	"transitional",
+	"nontransitional",
+#ifdef IDN2_ALLOW_UNASSIGNED
+	"allow_unassigned",
+#endif
+#ifdef IDN2_USE_STD3_ASCII_RULES
+	"use_std3_ascii_rules",
+#endif
+	NULL
+};
 static int checkidn2_flags(lua_State *L, int idx) {
 	size_t i;
 	int res = 0;
